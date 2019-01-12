@@ -79,7 +79,7 @@ if __name__ == '__main__':
 		plt.plot(range(diff,N),bpms,label=label)
 
 	plt.legend()
-	plt.title("Savitzky-Golay")
+	plt.title("Savitzky-Golay Filtered Tap Data")
 	plt.ylabel("BPM")
 	plt.xlabel("Tap Number")
 	plt.savefig("example.png")
