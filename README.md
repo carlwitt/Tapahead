@@ -10,4 +10,4 @@ To visualize tempo variations in tap data, a combination of a running average an
 ![Alt text](example.png?raw=true "Title")
 
 In the long term, I'd like to have an app or web-based tool that helps practicing absolute timing (tapping the right BPM).
-An interesting use case would be to interactively give some feedback on how tempo changes over time. I think this isn't as easy, because a user trying to implement corrective feedback behaves differently than a user polling her/his internal clock. On the other hand, feedback on past tempo variations (like the image above) seems relatively useless for practicing.
+An interesting use case would be to interactively give some feedback on how tempo changes over time. I think this isn't easy, because a user trying to implement corrective feedback behaves differently than a user polling her/his internal clock. On the other hand, feedback on past tempo variations (like the image above) seems relatively useless for practicing, other than double checking one's self-assessment or deciding whether one is close enough to practice goals.
