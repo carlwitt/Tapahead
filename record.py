@@ -66,8 +66,10 @@ if __name__ == '__main__':
 	savgol_order = 3
 
 	plt.plot(range(1, N), to_bpm(sliding_difference(timestamps,1)), label="raw", color="gray", alpha=0.3)
+	plt.plot(range(3, N), to_bpm(sliding_difference(timestamps, 3)), label="average last 3", color="red", alpha=0.4)
 
-	diffs = [(1, "raw with filter"), (3, "average 3 intervals + filter")]
+	#(1, "raw with filter"),
+	diffs = [(3, "average last 3 + filter")]
 	for diff, label in diffs:
 
 		bpms = to_bpm(sliding_difference(timestamps, diff, mean=stats.hmean))
@@ -79,7 +81,7 @@ if __name__ == '__main__':
 	plt.legend()
 	plt.title("Savitzky-Golay")
 	plt.ylabel("BPM")
-	plt.xlabel("Tap Interval")
+	plt.xlabel("Tap Number")
 	plt.savefig("example.png")
 	plt.show()
 
