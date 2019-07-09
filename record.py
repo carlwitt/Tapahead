@@ -4,6 +4,7 @@
 
 	It would be interesting to generate ground truth data by adding random noise to a known offset.
 	It seems as if filtering adds a delay (which doesn't seem like a big problem when assessing whether tempo is nice and constant).
+	Validate delay.
 
 """
 from typing import Callable
@@ -17,18 +18,22 @@ import time
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats.mstats as stats
+import sys
 
-def record():
+def record(num_taps: int=30):
+	"""
+	Simple record tap data method.
+	:return:
+	"""
 	timestamps = []
 
 	filename = input("Ready? Enter filename and then enter again to tap.")
-	for i in range(30):
+	for i in range(num_taps):
 		input("tap")
 		timestamps.append(time.time())
 
 	np.savetxt(filename, np.array(timestamps), fmt='%.50e',header='tap_unix_timestamp')
-	return timestamps
-
+	return filename
 
 
 def sliding_difference(timestamps: [float], diff: int=1, mean: Callable=stats.tmean) -> [float]:
@@ -52,14 +57,25 @@ def sliding_difference(timestamps: [float], diff: int=1, mean: Callable=stats.tm
 
 	return smoothed_lengths
 
+
 def to_bpm(interval_lengths: [float]):
 	# 80 bpm = 1.3 beats per second = 0.77 seconds per beat
 	# 1.55 seconds per 2 intervals = 0.775 seconds per interval = 1.29 beats per second = 77.4 bpm
 	return [1. / dur * 60 for dur in interval_lengths]
 
+
 if __name__ == '__main__':
-	# timestamps = record()
-	timestamps = np.loadtxt("shake")
+		
+	if len(sys.argv) > 1 and sys.argv[1] == '-r':
+		filename = record()
+	#interpret argument as filename
+	elif len(sys.argv) > 1 and not sys.argv[1].startswith("-"):
+		filename = sys.argv[1]
+	#default input
+	else:
+		filename = "feel-it-still.txt"
+
+	timestamps = np.loadtxt(filename)
 	N = len(timestamps)
 	print(N)
 	savgol_window = 9
